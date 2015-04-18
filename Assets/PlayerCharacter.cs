@@ -66,6 +66,9 @@ public class PlayerCharacter : MonoBehaviour {
 
 	void FixedUpdate () {
 		InputDevice device = InputManager.ActiveDevice;
+		if (device.RightStick.Vector.magnitude != 0){
+			Debug.Log(device.RightStick.Vector.magnitude.ToString());
+		}
 		// Movement
 		float n = device.GetControl(InputControlType.LeftStickY).Value 
 			+ device.GetControl(InputControlType.RightStickY).Value
