@@ -66,8 +66,6 @@ public class PlayerCharacter : MonoBehaviour {
 
 	void FixedUpdate () {
 		InputDevice device = InputManager.ActiveDevice;
-		InputControl NS1 = device.GetControl(InputControlType.LeftStickY);
-		InputControl NS2 = device.GetControl(InputControlType.LeftStickY);
 		// Movement
 		float n = device.GetControl(InputControlType.LeftStickY).Value 
 			+ device.GetControl(InputControlType.RightStickY).Value
@@ -111,7 +109,7 @@ public class PlayerCharacter : MonoBehaviour {
 
 	void OnTriggerStay(Collider col){
 		float angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
-		float damage = angle/view.spotAngle;
+		float damage = Mathf.Lerp(_minDamageFactor,1,1-(angle/view.spotAngle));
 		_health -= damage*_damageRate*Time.deltaTime;
 	}
 }
