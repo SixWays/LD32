@@ -11,7 +11,7 @@ public class PlayerCharacter : MonoBehaviour {
 	[SerializeField]
 	private float _maxHealth=100;
 	[SerializeField]
-	private float _maxNoise = -2;
+	private float _maxNoise = -3;
 	private float _minNoise = -0.2f;
 	[SerializeField]
 	private float _peakNoise = -10;
@@ -36,8 +36,8 @@ public class PlayerCharacter : MonoBehaviour {
 			if (_health < 0){
 				Application.LoadLevel(0);
 			} else {
-				float t = 1-(_health/_maxHealth);
-				nag.generalIntensity = Mathf.Lerp(_minNoise,_maxNoise,t);
+				float t = _health/_maxHealth;
+				nag.intensityMultiplier = Mathf.Lerp(_minNoise,_maxNoise,1-t);
 				pix.height = (int)Mathf.Lerp((float)_minPix,(float)_maxPix,t);
 			}
 		}
@@ -59,16 +59,14 @@ public class PlayerCharacter : MonoBehaviour {
 		pix = cam.GetComponent<Pixelz>();
 		_maxPix = pix.height;
 		nag = cam.GetComponent<NoiseAndGrain>();
-		_minNoise = nag.generalIntensity;
+		_minNoise = nag.intensityMultiplier;
 		rb = GetComponent<Rigidbody>();
 		rb.inertiaTensor = new Vector3(1e3f,1e3f,1e3f);
+		GetComponentInChildren<LightShafts>().m_Cameras = new Camera[]{Camera.main};
 	}
 
 	void FixedUpdate () {
 		InputDevice device = InputManager.ActiveDevice;
-		if (device.RightStick.Vector.magnitude != 0){
-			Debug.Log(device.RightStick.Vector.magnitude.ToString());
-		}
 		// Movement
 		float n = device.GetControl(InputControlType.LeftStickY).Value 
 			+ device.GetControl(InputControlType.RightStickY).Value
@@ -113,6 +111,8 @@ public class PlayerCharacter : MonoBehaviour {
 	void OnTriggerStay(Collider col){
 		float angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
 		float damage = Mathf.Lerp(_minDamageFactor,1,1-(angle/view.spotAngle));
-		_health -= damage*_damageRate*Time.deltaTime;
+		float dmg = Mathf.Clamp(damage*_damageRate*4,0,_damageRate);
+		health -= dmg*Time.deltaTime;
+		Debug.Log(angle.ToString()+" "+dmg.ToString());
 	}
 }
