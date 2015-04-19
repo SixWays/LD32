@@ -30,6 +30,7 @@ public class Monster : MonoBehaviour {
 		// Col is player
 		active = true;
 		StartCoroutine(OOS ());
+
 	}
 	
 	private Vector3 crumb = new Vector3();
@@ -72,7 +73,7 @@ public class Monster : MonoBehaviour {
 					vis=false;
 				}
 			}
-			//yield return new WaitForSeconds(aiRate);
+			yield return new WaitForSeconds(aiRate);
 		}
 	}
 	IEnumerator Pause(float dT){
