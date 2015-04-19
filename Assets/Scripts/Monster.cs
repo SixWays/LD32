@@ -7,6 +7,11 @@ public class Monster : MonoBehaviour {
 	public float healthBonus=20f;
 	// Use this for initialization
 	void Start () {
+		// HAXXXX
+		Vector3 temp = transform.position;
+		temp.y=0.55f;
+		transform.position = temp;
+
 		StartCoroutine(AILoop());
 		if (jumpy){
 			StartCoroutine(Moving(aiRate));
@@ -98,20 +103,29 @@ public class Monster : MonoBehaviour {
 		StartCoroutine(Pause(dT));
 	}
 	void FixedUpdate(){
-		if (active && tracking){
-			// Track crumb
-			float angle = Vector3.Angle(transform.forward,(crumb-transform.position));
-			Vector3 target = (crumb-transform.position).normalized;
-			// Rate is per 180 degrees
-			transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
+		if (active){
+			if (tracking){
+				// Track crumb
+				float angle = Vector3.Angle(transform.forward,(crumb-transform.position));
+				Vector3 target = (crumb-transform.position).normalized;
+				// Rate is per 180 degrees
+				transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
 
-			if (!paused){
-				// Check approach distance
-				if (Vector3.Distance(transform.position,crumb) > (pvis?1.2f:0.5f)){
-					transform.position += transform.forward*speed*Time.fixedDeltaTime;
-				} else if (pvis){
-					// Bounce!
+				if (!paused){
+					// Check approach distance
+					if (Vector3.Distance(transform.position,crumb) > (pvis?1.2f:0.5f)){
+						transform.position += transform.forward*speed*Time.fixedDeltaTime;
+					} else if (pvis){
+						// Bounce!
+						transform.position -= transform.forward*speed*Time.fixedDeltaTime;
+					}
 				}
+			} else {
+				// Rotate towards player so AI doesn't run in wrong dir when visible
+				float angle = Vector3.Angle(transform.forward,(PlayerCharacter.pos-transform.position));
+				Vector3 target = (PlayerCharacter.pos-transform.position).normalized;
+				// Rate is per 180 degrees
+				transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
 			}
 		}
 	}

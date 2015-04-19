@@ -29,6 +29,7 @@ public class LevelMgr : MonoBehaviour {
 
 	private void OnWin(){
 		if (!active){
+			fader.SetActive(true);
 			mat = fader.GetComponent<Renderer>().material;
 			StartCoroutine(Fade(win,Application.loadedLevel+1));
 		}
@@ -36,6 +37,7 @@ public class LevelMgr : MonoBehaviour {
 	}
 	private void OnDie(){
 		if (!active){
+			fader.SetActive(true);
 			mat = fader.GetComponent<Renderer>().material;
 			StartCoroutine(Fade(die,Application.loadedLevel));
 		}
