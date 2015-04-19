@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Monster : MonoBehaviour {
 	public float avoidForce=1000;
-	public float crumbRange=5f;
+	public float avoidRange=0.8f;
 	bool active=false;
 	public LayerMask playerLayer;
 	public LayerMask avoidLayers;
@@ -127,20 +127,15 @@ public class Monster : MonoBehaviour {
 							transform.position -= transform.forward*speed*Time.fixedDeltaTime;
 						}
 					} else {
-//						Debug.Log("Player invisible");
-						if (dir.magnitude > crumbRange){
-//							Debug.Log(dir.ToString());
-							Debug.DrawLine(transform.position,transform.position+dir,Color.white,Time.fixedDeltaTime);
+						if (dir.magnitude > 0.5f){
 							transform.position += transform.forward*speed*Time.fixedDeltaTime;
 						} else {
-							Debug.Log("Hit crumb");
 							// Get next crumb
 							if (crumbing){
-								Debug.Log("Getting next player crumb");
 								crumb = PlayerCharacter.NextCrum(crumb);
 							} else {
 								// Get nearest player crumb
-								float minSM = 999999999;
+								float minSM = 999;
 								foreach (Crumb c in PlayerCharacter.crumbs){
 									Vector3 dp = c.pos - transform.position;
 									// Check if nearer than current
@@ -158,17 +153,13 @@ public class Monster : MonoBehaviour {
 										                     PlayerCharacter.crumbs[i].pos,
 										                     out hit)){
 											// Obstructed
-											Debug.DrawLine(transform.position,hit.point,Color.red,Time.fixedDeltaTime);
 											if (PlayerCharacter.CheckCollider(hit.collider)){
 												// By player, so set new crumb
 												SetCrumb();
-												Debug.Log("PLAYER");
 											}
 										} else {
 											// No obstruction
-											Debug.Log("CRUMB");
 											crumb = PlayerCharacter.crumbs[i];
-											crumbing=true;
 											break;
 										}
 									}
@@ -188,12 +179,11 @@ public class Monster : MonoBehaviour {
 
 			// Evasion
 			if (tracking){
-				RaycastHit[] temp = Physics.SphereCastAll(transform.position,1.2f,transform.forward,0,avoidLayers.value);
+				RaycastHit[] temp = Physics.SphereCastAll(transform.position,avoidRange,transform.forward,0,avoidLayers.value);
 				if (temp.Length > 0){
 					Vector3 dir = new Vector3();
 					foreach (RaycastHit h in temp){
 						dir += (h.point - transform.position).normalized;
-						Debug.DrawLine (transform.position,h.point,Color.cyan,Time.fixedDeltaTime);
 					}
 					Debug.DrawLine(transform.position,transform.position-dir,Color.blue,Time.fixedDeltaTime);
 					dir /= temp.Length;
