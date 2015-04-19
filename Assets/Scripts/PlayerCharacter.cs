@@ -10,7 +10,7 @@ public class Crumb {
 }
 public class PlayerCharacter : MonoBehaviour {
 	public static void PlayDeathSound(AudioClip ac){
-		_instance.cam.GetComponent<AudioSource>().PlayOneShot(ac,0.25f);
+		_instance.cam.GetComponent<AudioSource>().PlayOneShot(ac,0.1f);
 	}
 	public AudioMixer mixer;
 	public float _maxBkgVol=0;

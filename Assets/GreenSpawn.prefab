@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 403412}
   - 114: {fileID: 11446622}
   m_Layer: 10
-  m_Name: Spawn
+  m_Name: GreenSpawn
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -36,9 +36,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 133316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bab29bf7b466840c2b13baf7985ffdea, type: 3}
+  m_Script: {fileID: 11500000, guid: 119ab8406ee0d4282a00de9a8b806bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 169418, guid: 339ce101879834169b8256890a9dd91f, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
