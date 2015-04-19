@@ -22,6 +22,10 @@ public class PlayerCharacter : MonoBehaviour {
 	private int _maxPix=320;
 	[SerializeField]
 	private int _minPix=64;
+	[SerializeField]
+	private float _maxDmgDist=1;
+	[SerializeField]
+	private float _minDmgDist=0.5f;
 
 	[SerializeField]
 	private Light view;
@@ -111,10 +115,19 @@ public class PlayerCharacter : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider col){
-		float angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
-		float damage = Mathf.Lerp(_minDamageFactor,1,1-(angle/view.spotAngle));
-		float dmg = Mathf.Clamp(damage*_damageRate*4,0,_damageRate);
+		float dist = Vector3.Distance(transform.position,col.transform.position);
+		float dmg;
+		if (dist < _maxDmgDist){
+			// at maxDD, minDmg; at minDD 1
+			dist = Mathf.Clamp(dist,_minDmgDist,_maxDmgDist);
+			dist /= (_maxDmgDist-_minDmgDist);
+			dmg = Mathf.Lerp(_minDamageFactor,1,1-dist) * _damageRate;
+		} else {
+			float angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
+			dmg = Mathf.Lerp(_minDamageFactor,1,1-(angle/view.spotAngle));
+			dmg = Mathf.Clamp(dmg*_damageRate*4,0,_damageRate);
+		}
 		health -= dmg*Time.deltaTime;
-		Debug.Log(angle.ToString()+" "+dmg.ToString());
+		Debug.Log(dmg);
 	}
 }
