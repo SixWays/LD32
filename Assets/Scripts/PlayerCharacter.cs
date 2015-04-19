@@ -185,7 +185,6 @@ public class PlayerCharacter : MonoBehaviour {
 				}
 				health -= dmg*Time.deltaTime;
 				//Debug.Log(angle+" "+dmg);
-				Debug.Log(Mathf.Round(health));
 			}
 		}
 	}

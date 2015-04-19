@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Monster : MonoBehaviour {
 	public float avoidForce=1000;
+	public float avoidRange=0.8f;
 	bool active=false;
 	public LayerMask playerLayer;
 	public LayerMask avoidLayers;
@@ -178,7 +179,7 @@ public class Monster : MonoBehaviour {
 
 			// Evasion
 			if (tracking){
-				RaycastHit[] temp = Physics.SphereCastAll(transform.position,1.2f,transform.forward,0,avoidLayers.value);
+				RaycastHit[] temp = Physics.SphereCastAll(transform.position,avoidRange,transform.forward,0,avoidLayers.value);
 				if (temp.Length > 0){
 					Vector3 dir = new Vector3();
 					foreach (RaycastHit h in temp){
