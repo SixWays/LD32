@@ -3643,7 +3643,7 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
-  m_Range: 10
+  m_Range: 8
   m_SpotAngle: 90
   m_CookieSize: 10
   m_Shadows:
@@ -5460,6 +5460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac2a7eb211584cedadc636346192b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 10
 --- !u!64 &1244713295
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9587,7 +9588,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3687a346b97be46bca4fa4749aeefdaa, type: 2}
+  - {fileID: 2100000, guid: 66db369293f26474ba6b6b74883e079f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

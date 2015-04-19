@@ -3,12 +3,13 @@ using System.Collections;
 
 public class FrustrumCollider : MonoBehaviour {
 	Mesh col;
+	public float range=6;
 	// Use this for initialization
 	void Start () {
 		Light view = GetComponentInChildren<Light>();
 		col = new Mesh();
 
-		float x = Mathf.Sin(0.9f*view.spotAngle/2)*view.range;
+		float x = Mathf.Sin(0.9f*view.spotAngle/2)*range;
 
 		Vector3[] v = new Vector3[8];
 		v[0] = new Vector3(-0.5f,0.5f,0.5f);
@@ -16,7 +17,7 @@ public class FrustrumCollider : MonoBehaviour {
 		v[2] = new Vector3(0.5f,-0.5f,0.5f);
 		v[3] = new Vector3(-0.5f,-0.5f,0.5f);
 
-		float z = view.range;
+		float z = range/2;
 
 		v[4] = new Vector3(-x,0.5f,z);
 		v[5] = new Vector3(x,0.5f,z);
