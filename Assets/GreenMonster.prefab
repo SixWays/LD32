@@ -11,7 +11,7 @@ GameObject:
   - 135: {fileID: 13500714}
   m_Layer: 13
   m_Name: Tigger
-  m_TagString: Untagged
+  m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11417476}
   m_Layer: 11
   m_Name: GreenMonster
-  m_TagString: Untagged
+  m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  healthBonus: 20
   rotRate: 1.5
+  speed: 1
   memory: 8
 --- !u!135 &13500714
 SphereCollider:

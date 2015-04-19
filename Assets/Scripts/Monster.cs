@@ -4,6 +4,7 @@ using System.Collections;
 public class Monster : MonoBehaviour {
 	bool active=false;
 	public LayerMask playerLayer;
+	public float healthBonus=20f;
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(AILoop());
@@ -65,6 +66,9 @@ public class Monster : MonoBehaviour {
 			transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
 
 			// Check approach distance
+			if (vis){
+
+			}
 			if (Vector3.Distance(transform.position,crumb) > (vis?1.2f:0.5f)){
 				transform.position += transform.forward*speed*Time.fixedDeltaTime;
 			}
@@ -93,6 +97,6 @@ public class Monster : MonoBehaviour {
 		}
 	}
 	void OnDestroy(){
-		PlayerCharacter.AddHealth(20);
+		PlayerCharacter.AddHealth(healthBonus);
 	}
 }

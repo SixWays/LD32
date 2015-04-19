@@ -130,18 +130,23 @@ public class PlayerCharacter : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider col){
-		float dist = Vector3.Distance(transform.position,col.transform.position);
-		float dmg;
-		float angle=-1;
-		if (dist < _maxDmgDist){
-			dmg = _damageRate;
-		} else {
-			angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
-			dmg = Mathf.Lerp(_minDamageFactor,1,1-(angle/(view.spotAngle/2)));
-			dmg = Mathf.Clamp(dmg*_damageRate*1.2f,0,_damageRate);
+		RaycastHit hit;
+		if (Physics.Linecast(transform.position,col.transform.position,out hit)){
+			if (hit.collider == col){
+				float dist = Vector3.Distance(transform.position,col.transform.position);
+				float dmg;
+				float angle=-1;
+				if (dist < _maxDmgDist){
+					dmg = _damageRate;
+				} else {
+					angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
+					dmg = Mathf.Lerp(_minDamageFactor,1,1-(angle/(view.spotAngle/2)));
+					dmg = Mathf.Clamp(dmg*_damageRate*1.2f,0,_damageRate);
+				}
+				health -= dmg*Time.deltaTime;
+				//Debug.Log(angle+" "+dmg);
+			}
 		}
-		health -= dmg*Time.deltaTime;
-		//Debug.Log(angle+" "+dmg);
 	}
 	void OnTriggerEnter(Collider col){
 		col.GetComponent<Monster>().InSight();

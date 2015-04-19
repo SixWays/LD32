@@ -4871,7 +4871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01bdf80673d04714b405c2a783fc7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invuln: 1
+  invuln: 0
   _maxHealth: 100
   _maxNoise: -2
   _peakNoise: -10
@@ -5354,7 +5354,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3.29999995
   m_Range: 16.4500008
-  m_SpotAngle: 26
+  m_SpotAngle: 28
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
