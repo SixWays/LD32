@@ -10,7 +10,7 @@ public class Crumb {
 }
 public class PlayerCharacter : MonoBehaviour {
 	public static void PlayDeathSound(AudioClip ac){
-		_instance.cam.GetComponent<AudioSource>().PlayOneShot(ac,0.1f);
+		_instance.cam.GetComponent<AudioSource>().PlayOneShot(ac,0.3f);
 	}
 	public AudioMixer mixer;
 	public float _maxBkgVol=0;
@@ -18,7 +18,19 @@ public class PlayerCharacter : MonoBehaviour {
 	private static PlayerCharacter _instance;
 	public static List<Crumb> crumbs;
 	public static void AddHealth(float h){
-		_instance.health += h;
+		_instance.AddMyHealth(h);
+		LevelMgr.Heal();
+	}
+	private void AddMyHealth(float h){
+		StartCoroutine(HealthLoop(h));
+	}
+	IEnumerator HealthLoop(float h){
+		float hpt = (h/2)*Time.fixedDeltaTime;
+		while (h>0){
+			health+=hpt;
+			h-=hpt;
+			yield return new WaitForFixedUpdate();
+		}
 	}
 	public static bool CheckCollider(Collider c){
 		return (_instance.myCol == c);

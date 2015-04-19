@@ -11,10 +11,16 @@ public class LevelMgr : MonoBehaviour {
 	[SerializeField]
 	private GameObject dmg;
 	private Material fadeMat;
+	[SerializeField]
+	private GameObject heal;
+	private Material healMat;
 	private Material dmgMat;
 	[SerializeField]
 	private Color dmgColEnd;
 	private Color dmgColStart;
+	[SerializeField]
+	private Color healColEnd;
+	private Color healColStart;
 	[SerializeField]
 	private Color win;
 	[SerializeField]
@@ -29,6 +35,11 @@ public class LevelMgr : MonoBehaviour {
 		dmgColStart.a=0;
 		dmgMat.color=dmgColStart;
 		dmg.SetActive(true);
+		healMat = heal.GetComponent<Renderer>().material;
+		healColStart = healColEnd;
+		healColStart.a = 0;
+		healMat.color = healColStart;
+		heal.SetActive(true);
 	}
 
 	public static void Win(){
@@ -72,5 +83,19 @@ public class LevelMgr : MonoBehaviour {
 	}
 	private void SetMyDmg(float factor){
 		dmgMat.color = Color.Lerp(dmgColStart,dmgColEnd,factor);
+	}
+	public static void Heal(){
+		_instance.HealMe();
+	}
+	void HealMe(){
+		StartCoroutine(HealLoop());
+	}
+	IEnumerator HealLoop(){
+		float myt=time;
+		while (myt>0){
+			healMat.color = Color.Lerp(healColStart,healColEnd,(myt/time));
+			myt-=Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
 	}
 }
