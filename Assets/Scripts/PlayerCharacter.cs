@@ -4,6 +4,10 @@ using InControl;
 using UnityStandardAssets.ImageEffects;
 
 public class PlayerCharacter : MonoBehaviour {
+	private static PlayerCharacter _instance;
+	public static void AddHealth(float h){
+		_instance.health += h;
+	}
 	public bool invuln=false;
 	float rRate;
 	NoiseAndGrain nag;
@@ -61,6 +65,7 @@ public class PlayerCharacter : MonoBehaviour {
 	float diff;
 	float angle;
 	void Awake(){
+		_instance = this;
 		cam = Camera.main.transform;
 		pix = cam.GetComponent<Pixelz>();
 		_maxPix = pix.height;
@@ -127,5 +132,11 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 		health -= dmg*Time.deltaTime;
 		Debug.Log(angle+" "+dmg);
+	}
+	void OnTriggerEnter(Collider col){
+		col.GetComponent<Monster>().InSight();
+	}
+	void OnTriggerExit(Collider col){
+		col.GetComponent<Monster>().OutOfSight();
 	}
 }

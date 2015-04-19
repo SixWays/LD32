@@ -4871,7 +4871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01bdf80673d04714b405c2a783fc7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invuln: 1
+  invuln: 0
   _maxHealth: 100
   _maxNoise: -2
   _peakNoise: -10
@@ -4879,7 +4879,7 @@ MonoBehaviour:
   _minDamageFactor: .200000003
   _minPix: 32
   _maxDmgDist: 1
-  _minDmgDist: .5
+  _minDmgDist: .75
   view: {fileID: 789997927}
   speed: 4
   lockFactor: .660000026
@@ -9634,6 +9634,7 @@ GameObject:
   - 33: {fileID: 2080579303}
   - 65: {fileID: 2080579302}
   - 23: {fileID: 2080579301}
+  - 114: {fileID: 2080579305}
   m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
@@ -9696,6 +9697,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &2080579305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080579300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9371c3391c359416d85e6ca32e4999ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memory: 8
 --- !u!1 &2103657834
 GameObject:
   m_ObjectHideFlags: 0
