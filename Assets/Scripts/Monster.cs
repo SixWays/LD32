@@ -53,58 +53,53 @@ public class Monster : MonoBehaviour {
 	private float aiRate=0.05f;
 
 	private bool tracking=false;
-	private bool vis=false;
+	private bool pvis=false;
 	IEnumerator AILoop(){
 		while (true){
 			if (active){
 				RaycastHit hit;
 				if (Physics.Linecast(transform.position,PlayerCharacter.pos,out hit)){
 					if (PlayerCharacter.CheckCollider(hit.collider)){
-						vis=true;
+						pvis=true;
 						tracking = true;
 						crumb = PlayerCharacter.pos;
 						crumb.y = transform.position.y;
 						//Debug.DrawLine(transform.position,PlayerCharacter.pos,Color.green,aiRate);
 					} else {
-						vis=false;
+						pvis=false;
 						//Debug.DrawLine(transform.position,PlayerCharacter.pos,Color.red,aiRate);
 					}
 				} else {
-					vis=false;
+					pvis=false;
 				}
 			}
 			yield return new WaitForSeconds(aiRate);
 		}
 	}
 	IEnumerator Pause(float dT){
+		Debug.Log("PAUSING");
 		paused=true;
 		float t = Random.Range(pauseMin,pauseMax);
-		if (active && tracking){
-			while (t>0){
-				/*
-				if (vis){
-					break;
-				}*/
+		while (t>0){
+			if (active && tracking){
 				t-=dT;
-				yield return new WaitForSeconds(dT);
 			}
-			StartCoroutine(Moving(dT));
+			yield return new WaitForSeconds(dT);
 		}
+		StartCoroutine(Moving(dT));
 	}
 	IEnumerator Moving(float dT){
+		Debug.Log("MOVING");	
 		paused = false;
 		float t = Random.Range(moveMin,moveMax);
-		if (active && tracking){
-			while (t>0){
-				/*
-				if (vis){
-					break;
-				}*/
+		while (t>0){
+			if (active && tracking){
+				Debug.Log("Moving for "+t);
 				t-=dT;
-				yield return new WaitForSeconds(dT);
 			}
-			StartCoroutine(Pause(dT));
+			yield return new WaitForSeconds(dT);
 		}
+		StartCoroutine(Pause(dT));
 	}
 	void FixedUpdate(){
 		if (active && tracking){
@@ -116,9 +111,9 @@ public class Monster : MonoBehaviour {
 
 			if (!paused){
 				// Check approach distance
-				if (Vector3.Distance(transform.position,crumb) > (vis?1.2f:0.5f)){
+				if (Vector3.Distance(transform.position,crumb) > (pvis?1.2f:0.5f)){
 					transform.position += transform.forward*speed*Time.fixedDeltaTime;
-				} else if (vis){
+				} else if (pvis){
 					// Bounce!
 				}
 			}
@@ -128,12 +123,12 @@ public class Monster : MonoBehaviour {
 	[SerializeField]
 	private float memory=8f;
 	private float timeToDie;
-	private bool seen=true;
+	private bool evis=true;
 	IEnumerator OOS(){
 		timeToDie = memory;
 		while (timeToDie>0){
 			// Only decrement when unseen
-			if (!seen){
+			if (!evis){
 				timeToDie -= Time.fixedDeltaTime;
 			}
 			yield return new WaitForFixedUpdate();
@@ -143,12 +138,12 @@ public class Monster : MonoBehaviour {
 
 	public Coroutine coos;
 	public void OutOfSight(){
-		Debug.Log("FORGETTING");
-		seen=false;
+//		Debug.Log("FORGETTING");
+		evis=false;
 	}
 	public void InSight(){
-		Debug.Log("OMGWTF");
-		seen=true;
+//		Debug.Log("OMGWTF");
+		evis=true;
 		timeToDie = memory;
 	}
 	void OnDestroy(){
