@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using InControl;
@@ -8,6 +9,9 @@ public class Crumb {
 	public Vector3 pos;
 }
 public class PlayerCharacter : MonoBehaviour {
+	public AudioMixer mixer;
+	public float _maxBkgVol=0;
+	private float _minBkgVol;
 	private static PlayerCharacter _instance;
 	public static List<Crumb> crumbs;
 	public static void AddHealth(float h){
@@ -63,6 +67,7 @@ public class PlayerCharacter : MonoBehaviour {
 					}
 					float t = _health/_maxHealth;
 					nag.intensityMultiplier = Mathf.Lerp(_minNoise,_maxNoise,1-t);
+					mixer.SetFloat("BkgVol",Mathf.Lerp(_minBkgVol,_maxBkgVol,1-t));
 					pix.height = (int)Mathf.Lerp((float)_minPix,(float)_maxPix,t);
 				}
 			}
@@ -84,6 +89,7 @@ public class PlayerCharacter : MonoBehaviour {
 	private Collider myCol;
 	void Awake(){
 		_instance = this;
+		mixer.GetFloat("BkgVol",out _minBkgVol);
 		crumbs = new List<Crumb>();
 		cam = Camera.main.transform;
 		pix = cam.GetComponent<Pixelz>();

@@ -2120,6 +2120,14 @@ Prefab:
       propertyPath: m_CurrentCamera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8290824, guid: 667c98a6c22fb46b9bfc51f18bdff477, type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a467ca77cca444f3f90128a2fe512961, type: 3}
+    - target: {fileID: 8290824, guid: 667c98a6c22fb46b9bfc51f18bdff477, type: 2}
+      propertyPath: m_Volume
+      value: .879999995
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 667c98a6c22fb46b9bfc51f18bdff477, type: 2}
   m_IsPrefabParent: 0
