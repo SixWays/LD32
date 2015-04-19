@@ -117,17 +117,15 @@ public class PlayerCharacter : MonoBehaviour {
 	void OnTriggerStay(Collider col){
 		float dist = Vector3.Distance(transform.position,col.transform.position);
 		float dmg;
+		float angle=-1;
 		if (dist < _maxDmgDist){
-			// at maxDD, minDmg; at minDD 1
-			dist = Mathf.Clamp(dist,_minDmgDist,_maxDmgDist);
-			dist /= (_maxDmgDist-_minDmgDist);
-			dmg = Mathf.Lerp(_minDamageFactor,1,1-dist) * _damageRate;
+			dmg = _damageRate;
 		} else {
-			float angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
-			dmg = Mathf.Lerp(_minDamageFactor,1,1-(angle/view.spotAngle));
-			dmg = Mathf.Clamp(dmg*_damageRate*4,0,_damageRate);
+			angle = Vector3.Angle((col.transform.position - transform.position),transform.forward);
+			dmg = Mathf.Lerp(_minDamageFactor,1,1-(angle/(view.spotAngle/2)));
+			dmg = Mathf.Clamp(dmg*_damageRate*1.2f,0,_damageRate);
 		}
 		health -= dmg*Time.deltaTime;
-		Debug.Log(dmg);
+		Debug.Log(angle+" "+dmg);
 	}
 }
