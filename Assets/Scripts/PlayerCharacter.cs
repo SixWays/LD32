@@ -51,8 +51,11 @@ public class PlayerCharacter : MonoBehaviour {
 			if (!invuln){
 				_health = value;
 				if (_health < 0){
-					Application.LoadLevel(0);
+					LevelMgr.Die();
 				} else {
+					if (_health>_maxHealth){
+						_health = _maxHealth;
+					}
 					float t = _health/_maxHealth;
 					nag.intensityMultiplier = Mathf.Lerp(_minNoise,_maxNoise,1-t);
 					pix.height = (int)Mathf.Lerp((float)_minPix,(float)_maxPix,t);
@@ -145,6 +148,7 @@ public class PlayerCharacter : MonoBehaviour {
 				}
 				health -= dmg*Time.deltaTime;
 				//Debug.Log(angle+" "+dmg);
+				Debug.Log(Mathf.Round(health));
 			}
 		}
 	}

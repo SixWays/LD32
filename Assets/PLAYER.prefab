@@ -449,7 +449,7 @@ MonoBehaviour:
   _maxHealth: 100
   _maxNoise: -2
   _peakNoise: -10
-  _damageRate: 20
+  _damageRate: 70
   _minDamageFactor: .200000003
   _minPix: 32
   _maxDmgDist: 1

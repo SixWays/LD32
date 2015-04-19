@@ -125,7 +125,7 @@ public class Monster : MonoBehaviour {
 		while (timeToDie>0){
 			// Only decrement when unseen
 			if (!evis){
-				Debug.Log("Forget in "+timeToDie);
+//				Debug.Log("Forget in "+timeToDie);
 				timeToDie -= dT;
 			} else {
 				timeToDie=memory;
@@ -137,11 +137,11 @@ public class Monster : MonoBehaviour {
 
 	public Coroutine coos;
 	public void OutOfSight(){
-		Debug.Log("FORGETTING");
+//		Debug.Log("FORGETTING");
 		evis=false;
 	}
 	public void InSight(){
-		Debug.Log("OMGWTF");
+//		Debug.Log("OMGWTF");
 		evis=true;
 	}
 	void OnDestroy(){
