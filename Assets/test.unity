@@ -3067,7 +3067,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &648128032
 GameObject:
@@ -3580,7 +3580,7 @@ MonoBehaviour:
   m_Cameras:
   - {fileID: 0}
   - {fileID: 1666313824}
-  m_CurrentCamera: {fileID: 1666313824}
+  m_CurrentCamera: {fileID: 0}
   m_Size: {x: 10, y: 10, z: 20}
   m_SpotNear: .0500000007
   m_SpotFar: 1
@@ -5396,7 +5396,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3.29999995
   m_Range: 16.4500008
-  m_SpotAngle: 28
+  m_SpotAngle: 59
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0

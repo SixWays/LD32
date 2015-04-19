@@ -29,8 +29,8 @@ public class Monster : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		// Col is player
 		active = true;
-		StartCoroutine(OOS ());
-
+		timeToDie = memory;
+		StartCoroutine(OOS(aiRate));
 	}
 	
 	private Vector3 crumb = new Vector3();
@@ -77,7 +77,6 @@ public class Monster : MonoBehaviour {
 		}
 	}
 	IEnumerator Pause(float dT){
-		Debug.Log("PAUSING");
 		paused=true;
 		float t = Random.Range(pauseMin,pauseMax);
 		while (t>0){
@@ -89,12 +88,10 @@ public class Monster : MonoBehaviour {
 		StartCoroutine(Moving(dT));
 	}
 	IEnumerator Moving(float dT){
-		Debug.Log("MOVING");	
 		paused = false;
 		float t = Random.Range(moveMin,moveMax);
 		while (t>0){
 			if (active && tracking){
-				Debug.Log("Moving for "+t);
 				t-=dT;
 			}
 			yield return new WaitForSeconds(dT);
@@ -124,25 +121,26 @@ public class Monster : MonoBehaviour {
 	private float memory=8f;
 	private float timeToDie;
 	private bool evis=true;
-	IEnumerator OOS(){
-		timeToDie = memory;
+	IEnumerator OOS(float dT){
 		while (timeToDie>0){
 			// Only decrement when unseen
 			if (!evis){
-				timeToDie -= Time.fixedDeltaTime;
+				Debug.Log("Forget in "+timeToDie);
+				timeToDie -= dT;
 			}
-			yield return new WaitForFixedUpdate();
+			yield return new WaitForSeconds(dT);
 		}
 		Destroy(gameObject);
 	}
 
 	public Coroutine coos;
 	public void OutOfSight(){
-//		Debug.Log("FORGETTING");
+		Debug.Log("FORGETTING");
 		evis=false;
+		timeToDie = memory;
 	}
 	public void InSight(){
-//		Debug.Log("OMGWTF");
+		Debug.Log("OMGWTF");
 		evis=true;
 		timeToDie = memory;
 	}
