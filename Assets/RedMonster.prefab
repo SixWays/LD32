@@ -44,7 +44,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.36556816, y: .550000012, z: 13.7236881}
+  m_LocalPosition: {x: 0, y: .550000012, z: -.949999988}
   m_LocalScale: {x: .800000012, y: .800000012, z: .800000012}
   m_Children:
   - {fileID: 496864}
@@ -192,7 +192,6 @@ MonoBehaviour:
   barks:
   - {fileID: 8300000, guid: 3d269ed0d7b6a4c2682d8b900b60f4b6, type: 3}
   - {fileID: 8300000, guid: f2088d9eddb3d46b5a49f0db2ee48d4b, type: 3}
-  - {fileID: 8300000, guid: 1540fc3395ab14edfb5dd6a11ba32ca6, type: 3}
   shox:
   - {fileID: 8300000, guid: 59001f2eeb4484b089a38394b1089027, type: 3}
   - {fileID: 8300000, guid: a73bc5ea28312447c84293a58cb4c635, type: 3}
@@ -207,7 +206,7 @@ MonoBehaviour:
   avoidLayers:
     serializedVersion: 2
     m_Bits: 1024
-  healthBonus: 50
+  healthBonus: 40
   rotRate: .5
   speed: 4.5
   jumpy: 1

@@ -206,9 +206,9 @@ MonoBehaviour:
   avoidLayers:
     serializedVersion: 2
     m_Bits: 1024
-  healthBonus: 50
+  healthBonus: 40
   rotRate: .5
-  speed: 6
+  speed: 5.5
   jumpy: 1
   pauseMin: .200000003
   pauseMax: .600000024

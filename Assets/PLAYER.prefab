@@ -318,9 +318,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24358120, guid: 0f364de5534724adeac028b156f2d495,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a467ca77cca444f3f90128a2fe512961, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .879999995
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -589,8 +589,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 0f364de5534724adeac028b156f2d495, type: 2}
   _maxBkgVol: 0
-  invuln: 0
-  _maxHealth: 100
+  invuln: 1
+  _maxHealth: 150
   _maxNoise: -2
   _peakNoise: -10
   _damageRate: 70
@@ -599,7 +599,7 @@ MonoBehaviour:
   _maxDmgDist: 1
   _minDmgDist: .75
   view: {fileID: 10877884}
-  speed: 3
+  speed: 3.5
   lockFactor: .660000026
   drag: .100000001
   rSmooth: .300000012

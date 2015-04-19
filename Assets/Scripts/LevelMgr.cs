@@ -76,7 +76,7 @@ public class LevelMgr : MonoBehaviour {
 			t-=Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
-		Application.LoadLevel(Application.loadedLevel);
+		Application.LoadLevel(level);
 	}
 	public static void SetDmg(float factor){
 		_instance.SetMyDmg(factor);

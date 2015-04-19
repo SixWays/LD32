@@ -206,7 +206,7 @@ MonoBehaviour:
   avoidLayers:
     serializedVersion: 2
     m_Bits: 1024
-  healthBonus: 20
+  healthBonus: 30
   rotRate: 1.5
   speed: 2
   jumpy: 0
