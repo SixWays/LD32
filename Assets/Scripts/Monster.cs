@@ -26,6 +26,7 @@ public class Monster : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		// Col is player
 		active = true;
+		StartCoroutine(OOS ());
 	}
 	
 	private Vector3 crumb = new Vector3();
@@ -78,10 +79,14 @@ public class Monster : MonoBehaviour {
 	[SerializeField]
 	private float memory=8f;
 	private float timeToDie;
+	private bool seen=true;
 	IEnumerator OOS(){
 		timeToDie = memory;
 		while (timeToDie>0){
-			timeToDie -= Time.fixedDeltaTime;
+			// Only decrement when unseen
+			if (!seen){
+				timeToDie -= Time.fixedDeltaTime;
+			}
 			yield return new WaitForFixedUpdate();
 		}
 		Destroy(gameObject);
@@ -89,12 +94,13 @@ public class Monster : MonoBehaviour {
 
 	public Coroutine coos;
 	public void OutOfSight(){
-		coos = StartCoroutine(OOS());
+		Debug.Log("FORGETTING");
+		seen=false;
 	}
 	public void InSight(){
-		if (coos != null){
-			StopCoroutine(coos);
-		}
+		Debug.Log("OMGWTF");
+		seen=true;
+		timeToDie = memory;
 	}
 	void OnDestroy(){
 		PlayerCharacter.AddHealth(healthBonus);
