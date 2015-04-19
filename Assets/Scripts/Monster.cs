@@ -22,8 +22,6 @@ public class Monster : MonoBehaviour {
 		}
 	}
 
-
-
 	void OnTriggerEnter(Collider col){
 		// Col is player
 		active = true;
@@ -33,19 +31,26 @@ public class Monster : MonoBehaviour {
 	private Vector3 rRate = new Vector3();
 	[SerializeField]
 	private float rotRate=1.5f;
+	[SerializeField]
+	private float speed=0.5f;
 
+	private bool vis=false;
 	IEnumerator AILoop(){
 		while (true){
 			if (active){
 				RaycastHit hit;
 				if (Physics.Linecast(transform.position,PlayerCharacter.pos,out hit)){
 					if (PlayerCharacter.CheckCollider(hit.collider)){
+						vis=true;
 						crumb = PlayerCharacter.pos;
-						Debug.Log("CRUMB: "+crumb.ToString());
+						crumb.y = transform.position.y;
 						Debug.DrawLine(transform.position,PlayerCharacter.pos,Color.green,0.05f);
 					} else {
+						vis=false;
 						Debug.DrawLine(transform.position,PlayerCharacter.pos,Color.red,0.05f);
 					}
+				} else {
+					vis=false;
 				}
 			}
 			yield return new WaitForSeconds(0.05f);
@@ -55,10 +60,14 @@ public class Monster : MonoBehaviour {
 		if (active){
 			// Track crumb
 			float angle = Vector3.Angle(transform.forward,(crumb-transform.position));
-			Vector3 target = Quaternion.Euler(0,angle,0)*transform.eulerAngles;
-			Debug.Log(target.ToString());
+			Vector3 target = (crumb-transform.position).normalized;
 			// Rate is per 180 degrees
-			transform.eulerAngles = target;//Vector3.SmoothDamp(transform.eulerAngles,target,ref rRate, 0.1f);//rotRate*angle/180);
+			transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
+
+			// Check approach distance
+			if (Vector3.Distance(transform.position,crumb) > (vis?1.2f:0.5f)){
+				transform.position += transform.forward*speed*Time.fixedDeltaTime;
+			}
 		}
 	}
 
