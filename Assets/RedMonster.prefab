@@ -29,6 +29,7 @@ GameObject:
   - 114: {fileID: 11474162}
   - 54: {fileID: 5439138}
   - 135: {fileID: 13535726}
+  - 82: {fileID: 8242056}
   m_Layer: 11
   m_Name: RedMonster
   m_TagString: Enemies
@@ -107,6 +108,76 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!82 &8242056
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198376}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24361024, guid: 0f364de5534724adeac028b156f2d495,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11474162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,6 +189,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9371c3391c359416d85e6ca32e4999ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barks:
+  - {fileID: 8300000, guid: 3d269ed0d7b6a4c2682d8b900b60f4b6, type: 3}
+  - {fileID: 8300000, guid: f2088d9eddb3d46b5a49f0db2ee48d4b, type: 3}
+  - {fileID: 8300000, guid: 1540fc3395ab14edfb5dd6a11ba32ca6, type: 3}
+  shox:
+  - {fileID: 8300000, guid: 59001f2eeb4484b089a38394b1089027, type: 3}
+  - {fileID: 8300000, guid: a73bc5ea28312447c84293a58cb4c635, type: 3}
+  deaths:
+  - {fileID: 8300000, guid: c69cb940556094c418ed59a900a5141a, type: 3}
+  - {fileID: 8300000, guid: 2cb280f8f0aa04f0fb2d3f8fafebe479, type: 3}
   avoidForce: 300
   avoidRange: .800000012
   playerLayer:
@@ -128,7 +209,7 @@ MonoBehaviour:
     m_Bits: 1024
   healthBonus: 50
   rotRate: .5
-  speed: 5.5
+  speed: 4.5
   jumpy: 1
   pauseMin: .5
   pauseMax: 1

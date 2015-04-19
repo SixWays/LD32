@@ -9,6 +9,9 @@ public class Crumb {
 	public Vector3 pos;
 }
 public class PlayerCharacter : MonoBehaviour {
+	public static void PlayDeathSound(AudioClip ac){
+		_instance.cam.GetComponent<AudioSource>().PlayOneShot(ac,0.25f);
+	}
 	public AudioMixer mixer;
 	public float _maxBkgVol=0;
 	private float _minBkgVol;

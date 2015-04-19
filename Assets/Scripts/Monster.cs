@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class Monster : MonoBehaviour {
+	public AudioClip[] barks;
+	public AudioClip[] shox;
+	public AudioClip[] deaths;
 	public float avoidForce=1000;
 	public float avoidRange=0.8f;
 	bool active=false;
@@ -37,7 +40,9 @@ public class Monster : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		// Col is player
-		active = true;
+		if (!active){
+			active = true;
+		}
 	}
 	
 	private Crumb crumb;
@@ -222,11 +227,20 @@ public class Monster : MonoBehaviour {
 //		Debug.Log("FORGETTING");
 		evis=false;
 	}
+	bool firstSight=true;
 	public void InSight(){
 //		Debug.Log("OMGWTF");
 		evis=true;
+		if (firstSight){
+			GetComponent<AudioSource>().PlayOneShot(barks[Random.Range(0,barks.Length)],0.75f);
+			GetComponent<AudioSource>().PlayOneShot(shox[Random.Range(0,shox.Length)]);
+			firstSight = false;
+		} else {
+			GetComponent<AudioSource>().PlayOneShot(barks[Random.Range(0,barks.Length)],0.5f);
+		}
 	}
 	void OnDestroy(){
 		PlayerCharacter.AddHealth(healthBonus);
+		PlayerCharacter.PlayDeathSound(deaths[Random.Range(0,deaths.Length)]);
 	}
 }
