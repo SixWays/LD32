@@ -11,6 +11,7 @@ public class Monster : MonoBehaviour {
 		if (jumpy){
 			StartCoroutine(Moving(aiRate));
 		}
+		StartCoroutine(OOS(aiRate));
 		SphereCollider trig=null;
 		foreach (SphereCollider c in GetComponentsInChildren<SphereCollider>(true)){
 			if (c.isTrigger){
@@ -29,8 +30,6 @@ public class Monster : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		// Col is player
 		active = true;
-		timeToDie = memory;
-		StartCoroutine(OOS(aiRate));
 	}
 	
 	private Vector3 crumb = new Vector3();
@@ -122,11 +121,14 @@ public class Monster : MonoBehaviour {
 	private float timeToDie;
 	private bool evis=true;
 	IEnumerator OOS(float dT){
+		timeToDie = memory;
 		while (timeToDie>0){
 			// Only decrement when unseen
 			if (!evis){
 				Debug.Log("Forget in "+timeToDie);
 				timeToDie -= dT;
+			} else {
+				timeToDie=memory;
 			}
 			yield return new WaitForSeconds(dT);
 		}
@@ -137,12 +139,10 @@ public class Monster : MonoBehaviour {
 	public void OutOfSight(){
 		Debug.Log("FORGETTING");
 		evis=false;
-		timeToDie = memory;
 	}
 	public void InSight(){
 		Debug.Log("OMGWTF");
 		evis=true;
-		timeToDie = memory;
 	}
 	void OnDestroy(){
 		PlayerCharacter.AddHealth(healthBonus);
