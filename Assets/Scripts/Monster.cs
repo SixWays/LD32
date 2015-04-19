@@ -232,7 +232,7 @@ public class Monster : MonoBehaviour {
 //		Debug.Log("OMGWTF");
 		evis=true;
 		if (firstSight){
-			GetComponent<AudioSource>().PlayOneShot(barks[Random.Range(0,barks.Length)],0.75f);
+			GetComponent<AudioSource>().PlayOneShot(barks[Random.Range(0,barks.Length)],0.5f);
 			GetComponent<AudioSource>().PlayOneShot(shox[Random.Range(0,shox.Length)]);
 			firstSight = false;
 		} else {
