@@ -2,8 +2,10 @@
 using System.Collections;
 
 public class Monster : MonoBehaviour {
+	public float avoidForce=1000;
 	bool active=false;
 	public LayerMask playerLayer;
+	public LayerMask avoidLayers;
 	public float healthBonus=20f;
 	// Use this for initialization
 	void Start () {
@@ -172,6 +174,20 @@ public class Monster : MonoBehaviour {
 				Vector3 target = (PlayerCharacter.pos-transform.position).normalized;
 				// Rate is per 180 degrees
 				transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
+			}
+
+			// Evasion
+			if (tracking){
+				RaycastHit[] temp = Physics.SphereCastAll(transform.position,1.2f,transform.forward,0,avoidLayers.value);
+				if (temp.Length > 0){
+					Vector3 dir = new Vector3();
+					foreach (RaycastHit h in temp){
+						dir += (h.point - transform.position).normalized;
+					}
+					Debug.DrawLine(transform.position,transform.position-dir,Color.blue,Time.fixedDeltaTime);
+					dir /= temp.Length;
+					GetComponent<Rigidbody>().AddForce(avoidForce*dir.normalized*Time.fixedDeltaTime);
+				}
 			}
 		}
 	}

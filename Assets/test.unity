@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: .477941155, g: .477941155, b: .477941155, a: 1}
   m_AmbientEquatorColor: {r: .114, g: .125, b: .133000001, a: 1}
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 0
@@ -9338,6 +9338,10 @@ Prefab:
     - target: {fileID: 198376, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}
       propertyPath: m_Name
       value: RedMonster 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11474162, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}
+      propertyPath: healthBonus
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}

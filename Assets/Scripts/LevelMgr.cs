@@ -54,6 +54,6 @@ public class LevelMgr : MonoBehaviour {
 			t-=Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
-		//Application.LoadLevel(level);
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }
