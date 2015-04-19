@@ -8,6 +8,14 @@ public class PlayerCharacter : MonoBehaviour {
 	public static void AddHealth(float h){
 		_instance.health += h;
 	}
+	public static bool CheckCollider(Collider c){
+		return (_instance.myCol == c);
+	}
+	public static Vector3 pos {
+		get {
+			return _instance.transform.position;
+		}
+	}
 	public bool invuln=false;
 	float rRate;
 	NoiseAndGrain nag;
@@ -64,6 +72,8 @@ public class PlayerCharacter : MonoBehaviour {
 	Rigidbody rb;
 	float diff;
 	float angle;
+	[SerializeField]
+	private Collider myCol;
 	void Awake(){
 		_instance = this;
 		cam = Camera.main.transform;
@@ -131,7 +141,7 @@ public class PlayerCharacter : MonoBehaviour {
 			dmg = Mathf.Clamp(dmg*_damageRate*1.2f,0,_damageRate);
 		}
 		health -= dmg*Time.deltaTime;
-		Debug.Log(angle+" "+dmg);
+		//Debug.Log(angle+" "+dmg);
 	}
 	void OnTriggerEnter(Collider col){
 		col.GetComponent<Monster>().InSight();
