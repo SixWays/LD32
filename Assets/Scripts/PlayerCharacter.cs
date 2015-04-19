@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using InControl;
 using UnityStandardAssets.ImageEffects;
 
+public class Crumb {
+	public Vector3 pos;
+}
 public class PlayerCharacter : MonoBehaviour {
 	private static PlayerCharacter _instance;
+	public static List<Crumb> crumbs;
 	public static void AddHealth(float h){
 		_instance.health += h;
 	}
@@ -79,6 +84,7 @@ public class PlayerCharacter : MonoBehaviour {
 	private Collider myCol;
 	void Awake(){
 		_instance = this;
+		crumbs = new List<Crumb>();
 		cam = Camera.main.transform;
 		pix = cam.GetComponent<Pixelz>();
 		_maxPix = pix.height;
@@ -87,6 +93,37 @@ public class PlayerCharacter : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		rb.inertiaTensor = new Vector3(1e3f,1e3f,1e3f);
 		GetComponentInChildren<LightShafts>().m_Cameras = new Camera[]{Camera.main};
+	}
+
+	IEnumerator LeaveCrumbs(){
+		int num=0;
+		while(true){
+			if (crumbs.Count < 20){
+				crumbs.Add(GetCrumb());
+			} else {
+				for (int i=0; i<crumbs.Count-1; ++i){
+					// Pull each entry toward front
+					crumbs[i]=crumbs[i+1];
+				}
+				// Push to back
+				crumbs[crumbs.Count-1]=GetCrumb();
+			}
+			yield return new WaitForSeconds(0.2f);
+		}
+	}
+	public static Crumb GetCrumb(){
+		Crumb result = new Crumb();
+		result.pos = new Vector3(pos.x,pos.y,pos.z);
+		return result;
+	}
+	public static Crumb NextCrum(Crumb c){
+		if (crumbs.Contains(c)){
+			int i = crumbs.IndexOf(c);
+			if (i<(crumbs.Count-1)){
+				return crumbs[i+1];
+			}
+		}
+		return GetCrumb();
 	}
 
 	void FixedUpdate () {

@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour {
 		active = true;
 	}
 	
-	private Vector3 crumb = new Vector3();
+	private Crumb crumb;
 	private Vector3 rRate = new Vector3();
 	[SerializeField]
 	private float rotRate=1.5f;
@@ -57,6 +57,7 @@ public class Monster : MonoBehaviour {
 	private float aiRate=0.05f;
 
 	private bool tracking=false;
+	private bool crumbing=false;
 	private bool pvis=false;
 	IEnumerator AILoop(){
 		while (true){
@@ -66,8 +67,8 @@ public class Monster : MonoBehaviour {
 					if (PlayerCharacter.CheckCollider(hit.collider)){
 						pvis=true;
 						tracking = true;
-						crumb = PlayerCharacter.pos;
-						crumb.y = transform.position.y;
+						// No longer using player's breadcrumbs - using own
+						SetCrumb();
 						//Debug.DrawLine(transform.position,PlayerCharacter.pos,Color.green,aiRate);
 					} else {
 						pvis=false;
@@ -106,18 +107,63 @@ public class Monster : MonoBehaviour {
 		if (active){
 			if (tracking){
 				// Track crumb
-				float angle = Vector3.Angle(transform.forward,(crumb-transform.position));
-				Vector3 target = (crumb-transform.position).normalized;
+				Vector3 dir = crumb.pos;
+				dir.y = transform.position.y;
+				dir = dir-transform.position;
+				float angle = Vector3.Angle(transform.forward,dir);
 				// Rate is per 180 degrees
-				transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
+				transform.forward = Vector3.SmoothDamp(transform.forward,dir.normalized,ref rRate, rotRate*angle/180);
 
 				if (!paused){
 					// Check approach distance
-					if (Vector3.Distance(transform.position,crumb) > (pvis?1.2f:0.5f)){
-						transform.position += transform.forward*speed*Time.fixedDeltaTime;
-					} else if (pvis){
-						// Bounce!
-						transform.position -= transform.forward*speed*Time.fixedDeltaTime;
+					if (pvis){
+						if (dir.magnitude > 1.2f){
+							transform.position += transform.forward*speed*Time.fixedDeltaTime;
+						} else {
+							// Bounce!
+							transform.position -= transform.forward*speed*Time.fixedDeltaTime;
+						}
+					} else {
+						if (dir.magnitude > 0.5f){
+							transform.position += transform.forward*speed*Time.fixedDeltaTime;
+						} else {
+							// Get next crumb
+							if (crumbing){
+								crumb = PlayerCharacter.NextCrum(crumb);
+							} else {
+								// Get nearest player crumb
+								float minSM = 999;
+								foreach (Crumb c in PlayerCharacter.crumbs){
+									Vector3 dp = c.pos - transform.position;
+									// Check if nearer than current
+									float dps = dp.sqrMagnitude;
+									if (dps < minSM){
+										crumb = c;
+										minSM = dps;
+									}
+								}
+								if (crumb != null){
+									// Check LoS
+									// Start at index of current crumb and work backwards
+									for (int i=PlayerCharacter.crumbs.IndexOf(crumb); i>=0; --i){										RaycastHit hit;
+										if (Physics.Linecast(transform.position,
+										                     PlayerCharacter.crumbs[i].pos,
+										                     out hit)){
+											// Obstructed
+											if (PlayerCharacter.CheckCollider(hit.collider)){
+												// By player, so set new crumb
+												SetCrumb();
+											}
+										} else {
+											// No obstruction
+											crumb = PlayerCharacter.crumbs[i];
+											break;
+										}
+									}
+									crumbing = true;
+								}
+							}
+						}
 					}
 				}
 			} else {
@@ -128,6 +174,11 @@ public class Monster : MonoBehaviour {
 				transform.forward = Vector3.SmoothDamp(transform.forward,target,ref rRate, rotRate*angle/180);
 			}
 		}
+	}
+	private void SetCrumb(){
+		crumbing=false;
+		pvis = true;
+		crumb = PlayerCharacter.GetCrumb();
 	}
 
 	[SerializeField]
