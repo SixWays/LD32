@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01bdf80673d04714b405c2a783fc7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invuln: 0
+  invuln: 1
   _maxHealth: 100
   _maxNoise: -2
   _peakNoise: -10
@@ -455,7 +455,7 @@ MonoBehaviour:
   _maxDmgDist: 1
   _minDmgDist: .75
   view: {fileID: 10877884}
-  speed: 4
+  speed: 3
   lockFactor: .660000026
   drag: .100000001
   rSmooth: .300000012

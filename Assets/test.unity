@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: .477941155, g: .477941155, b: .477941155, a: 1}
   m_AmbientEquatorColor: {r: .114, g: .125, b: .133000001, a: 1}
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
-  m_AmbientIntensity: 0
+  m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: .5
@@ -2119,10 +2119,6 @@ Prefab:
     - target: {fileID: 11408142, guid: 667c98a6c22fb46b9bfc51f18bdff477, type: 2}
       propertyPath: m_CurrentCamera
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405334, guid: 667c98a6c22fb46b9bfc51f18bdff477, type: 2}
-      propertyPath: speed
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 667c98a6c22fb46b9bfc51f18bdff477, type: 2}
@@ -5083,7 +5079,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 486736, guid: 339ce101879834169b8256890a9dd91f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -6.01000023
       objectReference: {fileID: 0}
     - target: {fileID: 486736, guid: 339ce101879834169b8256890a9dd91f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5091,7 +5087,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 486736, guid: 339ce101879834169b8256890a9dd91f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 23.1200008
       objectReference: {fileID: 0}
     - target: {fileID: 486736, guid: 339ce101879834169b8256890a9dd91f, type: 2}
       propertyPath: m_LocalRotation.x
@@ -5112,10 +5108,6 @@ Prefab:
     - target: {fileID: 486736, guid: 339ce101879834169b8256890a9dd91f, type: 2}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 169418, guid: 339ce101879834169b8256890a9dd91f, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 339ce101879834169b8256890a9dd91f, type: 2}
@@ -9334,14 +9326,6 @@ Prefab:
     - target: {fileID: 425794, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 198376, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}
-      propertyPath: m_Name
-      value: RedMonster 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11474162, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}
-      propertyPath: healthBonus
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7ecfe0c5b813458fb1b078c43189c26, type: 2}
