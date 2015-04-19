@@ -8,7 +8,13 @@ public class LevelMgr : MonoBehaviour {
 	private float t;
 	[SerializeField]
 	private GameObject fader;
-	private Material mat;
+	[SerializeField]
+	private GameObject dmg;
+	private Material fadeMat;
+	private Material dmgMat;
+	[SerializeField]
+	private Color dmgColEnd;
+	private Color dmgColStart;
 	[SerializeField]
 	private Color win;
 	[SerializeField]
@@ -18,6 +24,11 @@ public class LevelMgr : MonoBehaviour {
 
 	void Awake(){
 		_instance = this;
+		dmgMat = dmg.GetComponent<Renderer>().material;
+		dmgColStart = dmgColEnd;
+		dmgColStart.a=0;
+		dmgMat.color=dmgColStart;
+		dmg.SetActive(true);
 	}
 
 	public static void Win(){
@@ -30,7 +41,7 @@ public class LevelMgr : MonoBehaviour {
 	private void OnWin(){
 		if (!active){
 			fader.SetActive(true);
-			mat = fader.GetComponent<Renderer>().material;
+			fadeMat = fader.GetComponent<Renderer>().material;
 			StartCoroutine(Fade(win,Application.loadedLevel+1));
 		}
 		active = true;
@@ -38,7 +49,7 @@ public class LevelMgr : MonoBehaviour {
 	private void OnDie(){
 		if (!active){
 			fader.SetActive(true);
-			mat = fader.GetComponent<Renderer>().material;
+			fadeMat = fader.GetComponent<Renderer>().material;
 			StartCoroutine(Fade(die,Application.loadedLevel));
 		}
 		active = true;
@@ -50,10 +61,16 @@ public class LevelMgr : MonoBehaviour {
 		Color start = c;
 		start.a = 0;
 		while (t>0){
-			mat.color = Color.Lerp(start,end,1-(t/time));
+			fadeMat.color = Color.Lerp(start,end,1-(t/time));
 			t-=Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 		Application.LoadLevel(Application.loadedLevel);
+	}
+	public static void SetDmg(float factor){
+		_instance.SetMyDmg(factor);
+	}
+	private void SetMyDmg(float factor){
+		dmgMat.color = Color.Lerp(dmgColStart,dmgColEnd,factor);
 	}
 }

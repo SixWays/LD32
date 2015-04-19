@@ -14,7 +14,7 @@ public class PlayerCharacter : MonoBehaviour {
 	}
 	public AudioMixer mixer;
 	public float _maxBkgVol=0;
-	private float _minBkgVol;
+	private float _minBkgVol=-34;
 	private static PlayerCharacter _instance;
 	public static List<Crumb> crumbs;
 	public static void AddHealth(float h){
@@ -72,6 +72,7 @@ public class PlayerCharacter : MonoBehaviour {
 					nag.intensityMultiplier = Mathf.Lerp(_minNoise,_maxNoise,1-t);
 					mixer.SetFloat("BkgVol",Mathf.Lerp(_minBkgVol,_maxBkgVol,1-t));
 					pix.height = (int)Mathf.Lerp((float)_minPix,(float)_maxPix,t);
+					LevelMgr.SetDmg(1-(_health/_maxHealth));
 				}
 			}
 		}
@@ -92,7 +93,6 @@ public class PlayerCharacter : MonoBehaviour {
 	private Collider myCol;
 	void Awake(){
 		_instance = this;
-		mixer.GetFloat("BkgVol",out _minBkgVol);
 		crumbs = new List<Crumb>();
 		cam = Camera.main.transform;
 		pix = cam.GetComponent<Pixelz>();
@@ -102,8 +102,9 @@ public class PlayerCharacter : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		rb.inertiaTensor = new Vector3(1e3f,1e3f,1e3f);
 		GetComponentInChildren<LightShafts>().m_Cameras = new Camera[]{Camera.main};
+		// Reset effects
+		health = _maxHealth;
 	}
-
 	IEnumerator LeaveCrumbs(){
 		int num=0;
 		while(true){
@@ -135,7 +136,7 @@ public class PlayerCharacter : MonoBehaviour {
 		return GetCrumb();
 	}
 
-	void FixedUpdate () {
+	void Update () {
 		InputDevice device = InputManager.ActiveDevice;
 		// Movement
 		float n = device.GetControl(InputControlType.LeftStickY).Value 
