@@ -4,7 +4,7 @@ using InControl;
 using UnityStandardAssets.ImageEffects;
 
 public class PlayerCharacter : MonoBehaviour {
-	InputDevice id;
+	public bool invuln=false;
 	float rRate;
 	NoiseAndGrain nag;
 	Pixelz pix;
@@ -32,13 +32,15 @@ public class PlayerCharacter : MonoBehaviour {
 			return _health;
 		}
 		set {
-			_health = value;
-			if (_health < 0){
-				Application.LoadLevel(0);
-			} else {
-				float t = _health/_maxHealth;
-				nag.intensityMultiplier = Mathf.Lerp(_minNoise,_maxNoise,1-t);
-				pix.height = (int)Mathf.Lerp((float)_minPix,(float)_maxPix,t);
+			if (!invuln){
+				_health = value;
+				if (_health < 0){
+					Application.LoadLevel(0);
+				} else {
+					float t = _health/_maxHealth;
+					nag.intensityMultiplier = Mathf.Lerp(_minNoise,_maxNoise,1-t);
+					pix.height = (int)Mathf.Lerp((float)_minPix,(float)_maxPix,t);
+				}
 			}
 		}
 	}
