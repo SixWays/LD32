@@ -5,7 +5,19 @@ using InControl;
 using UnityStandardAssets.ImageEffects;
 
 public class Crumb {
-	public Vector3 pos;
+	private Vector3 _pos;
+	public Vector3 pos {
+		get {
+			return _pos;
+		}
+		set {
+#if UNITY_EDITOR
+			GameObject.Instantiate(Resources.Load<GameObject>("CrumbGizmo"),value,new Quaternion());
+#endif
+			_pos = value;
+		}
+	}
+
 }
 public class PlayerCharacter : MonoBehaviour {
 	private static PlayerCharacter _instance;
@@ -93,12 +105,13 @@ public class PlayerCharacter : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		rb.inertiaTensor = new Vector3(1e3f,1e3f,1e3f);
 		GetComponentInChildren<LightShafts>().m_Cameras = new Camera[]{Camera.main};
+		StartCoroutine(LeaveCrumbs());
 	}
 
 	IEnumerator LeaveCrumbs(){
 		int num=0;
 		while(true){
-			if (crumbs.Count < 20){
+			if (crumbs.Count < 40){
 				crumbs.Add(GetCrumb());
 			} else {
 				for (int i=0; i<crumbs.Count-1; ++i){
@@ -108,7 +121,7 @@ public class PlayerCharacter : MonoBehaviour {
 				// Push to back
 				crumbs[crumbs.Count-1]=GetCrumb();
 			}
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(0.5f);
 		}
 	}
 	public static Crumb GetCrumb(){
@@ -184,8 +197,6 @@ public class PlayerCharacter : MonoBehaviour {
 					dmg = Mathf.Clamp(dmg*_damageRate*1.2f,0,_damageRate);
 				}
 				health -= dmg*Time.deltaTime;
-				//Debug.Log(angle+" "+dmg);
-				Debug.Log(Mathf.Round(health));
 			}
 		}
 	}
