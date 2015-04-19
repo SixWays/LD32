@@ -114,6 +114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9371c3391c359416d85e6ca32e4999ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
   rotRate: 1.5
   memory: 8
 --- !u!135 &13500714
