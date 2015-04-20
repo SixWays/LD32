@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6586dacc8064c4be08c438334b8ebe38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  last: 0
+  last: 1
   time: 1
   fader: {fileID: 1943239742}
   dmg: {fileID: 1765275395}
