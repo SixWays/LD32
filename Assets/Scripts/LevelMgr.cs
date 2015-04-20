@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class LevelMgr : MonoBehaviour {
+	public bool last=false;
 	private static LevelMgr _instance;
 	[SerializeField]
 	private float time=1f;
@@ -29,6 +30,10 @@ public class LevelMgr : MonoBehaviour {
 	private bool active=false;
 
 	void Awake(){
+		if (last){
+			Destroy(GameObject.Find("Menu"));
+			Application.LoadLevel(0);
+		}
 		_instance = this;
 		dmgMat = dmg.GetComponent<Renderer>().material;
 		dmgColStart = dmgColEnd;
