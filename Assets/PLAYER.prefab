@@ -589,13 +589,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 0f364de5534724adeac028b156f2d495, type: 2}
   _maxBkgVol: 0
-  invuln: 1
-  _maxHealth: 150
+  invuln: 0
+  _maxHealth: 140
   _maxNoise: -2
   _peakNoise: -10
   _damageRate: 70
   _minDamageFactor: .200000003
-  _minPix: 32
+  _minPix: 42
   _maxDmgDist: 1
   _minDmgDist: .75
   view: {fileID: 10877884}
