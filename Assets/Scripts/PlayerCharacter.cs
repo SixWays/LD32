@@ -9,6 +9,9 @@ public class Crumb {
 	public Vector3 pos;
 }
 public class PlayerCharacter : MonoBehaviour {
+	public AudioClip[] feet;
+	public float footTime=0.75f;
+	public AudioSource footSource;
 	public static void PlayDeathSound(AudioClip ac){
 		_instance.cam.GetComponent<AudioSource>().PlayOneShot(ac,0.3f);
 	}
@@ -104,6 +107,7 @@ public class PlayerCharacter : MonoBehaviour {
 	[SerializeField]
 	private Collider myCol;
 	void Awake(){
+		StartCoroutine(FootSteps());
 		_instance = this;
 		crumbs = new List<Crumb>();
 		cam = Camera.main.transform;
@@ -189,6 +193,27 @@ public class PlayerCharacter : MonoBehaviour {
 		Vector3 camPos = Vector3.SmoothDamp(cam.position,transform.position,ref camRate,camLag);
 		camPos.y = cam.position.y;
 		cam.position = camPos;
+	}
+
+	void FixedUpdate(){
+		float s = rb.velocity.magnitude/speed;
+		if (s>0.2){
+			_feet=true;
+			currentFootTime = Mathf.Lerp(footTime*3,footTime,s);
+		} else{
+			_feet=false;
+		}
+
+	}
+	private bool _feet=false;
+	private float currentFootTime=0.75f;
+	IEnumerator FootSteps(){
+		while(true){
+			if (_feet){
+				footSource.PlayOneShot(feet[Random.Range(0,feet.Length)]);
+			}
+			yield return new WaitForSeconds(currentFootTime);
+		}
 	}
 
 	void OnTriggerStay(Collider col){
