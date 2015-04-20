@@ -12,6 +12,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/L3.unity
   - enabled: 1
+    path: Assets/Scenes/L4.unity
+  - enabled: 1
     path: Assets/Scenes/LEnd.unity
   - enabled: 1
     path: Assets/Scenes/RealEnd.unity
